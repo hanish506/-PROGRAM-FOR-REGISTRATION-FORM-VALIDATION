@@ -1,0 +1,162 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Advanced Registration Form</title>
+
+<style>
+body {
+    font-family: Arial, sans-serif;
+    background: linear-gradient(120deg, #89f7fe, #66a6ff);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.form-box {
+    background: #fff;
+    padding: 30px;
+    width: 360px;
+    border-radius: 10px;
+    box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+}
+
+h2 {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+input {
+    width: 100%;
+    padding: 9px;
+    margin-top: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+}
+
+input:focus {
+    border-color: #007bff;
+    outline: none;
+}
+
+.error {
+    color: red;
+    font-size: 12px;
+}
+
+.success {
+    color: green;
+    text-align: center;
+    margin-top: 10px;
+}
+
+button {
+    width: 100%;
+    padding: 10px;
+    background: #007bff;
+    color: #fff;
+    border: none;
+    margin-top: 15px;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #0056b3;
+}
+</style>
+</head>
+
+<body>
+
+<div class="form-box">
+    <h2>User Registration</h2>
+
+    <form onsubmit="return validateForm()">
+
+        <input type="text" id="username" placeholder="Username">
+        <div class="error" id="userError"></div>
+
+        <input type="password" id="password" placeholder="Password">
+        <div class="error" id="passError"></div>
+
+        <input type="password" id="confirmPassword" placeholder="Confirm Password">
+        <div class="error" id="confirmError"></div>
+
+        <input type="text" id="email" placeholder="Email">
+        <div class="error" id="emailError"></div>
+
+        <input type="text" id="mobile" placeholder="Mobile Number">
+        <div class="error" id="mobileError"></div>
+
+        <button type="submit">Register</button>
+
+        <div class="success" id="successMsg"></div>
+    </form>
+</div>
+
+<script>
+function validateForm() {
+
+    // Input values
+    let username = document.getElementById("username").value.trim();
+    let password = document.getElementById("password").value;
+    let confirmPassword = document.getElementById("confirmPassword").value;
+    let email = document.getElementById("email").value;
+    let mobile = document.getElementById("mobile").value;
+
+    // Error reset
+    document.querySelectorAll(".error").forEach(e => e.innerHTML = "");
+    document.getElementById("successMsg").innerHTML = "";
+
+    let valid = true;
+
+    // Username validation (letters only)
+    let userPattern = /^[A-Za-z ]+$/;
+    if (username === "") {
+        userError.innerHTML = "Username is required";
+        valid = false;
+    } else if (!userPattern.test(username)) {
+        userError.innerHTML = "Username must contain only letters";
+        valid = false;
+    }
+
+    // Password validation
+    if (password.length < 6) {
+        passError.innerHTML = "Password must be at least 6 characters";
+        valid = false;
+    }
+
+    // Confirm password
+    if (password !== confirmPassword) {
+        confirmError.innerHTML = "Passwords do not match";
+        valid = false;
+    }
+
+    // Email validation
+    let emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailPattern.test(email)) {
+        emailError.innerHTML = "Invalid email format";
+        valid = false;
+    }
+
+    // Mobile validation
+    let mobilePattern = /^[0-9]{10}$/;
+    if (!mobilePattern.test(mobile)) {
+        mobileError.innerHTML = "Mobile number must be exactly 10 digits";
+        valid = false;
+    }
+
+    // Success
+    if (valid) {
+        document.getElementById("successMsg").innerHTML =
+            "Registration Successful ✔";
+    }
+
+    return valid;
+}
+</script>
+
+</body>
+</html>
